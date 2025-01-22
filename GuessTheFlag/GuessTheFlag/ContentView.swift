@@ -9,7 +9,7 @@ struct ContentView: View {
     @State private var scoreTitle = ""
     @State private var score = 0
     @State private var count = 0
-    @State private var clickIndex 
+    @State private var clickIndex = 0
     
     let MAX_SZIE = 8
     
@@ -113,10 +113,8 @@ struct ContentView: View {
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
-    }
+#Preview {
+    ContentView()
 }
 
 

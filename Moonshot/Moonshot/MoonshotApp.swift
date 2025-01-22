@@ -1,14 +1,14 @@
 //
-//  iExpenseApp.swift
-//  iExpense
+//  MoonshotApp.swift
+//  Moonshot
 //
-//  Created by windlliu on 2024/11/1.
+//  Created by windlliu on 2025/1/8.
 //
 
 import SwiftUI
 
 @main
-struct iExpenseApp: App {
+struct MoonshotApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()

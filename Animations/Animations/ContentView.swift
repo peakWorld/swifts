@@ -76,7 +76,7 @@ struct ContentView_Previews: PreviewProvider {
  .clipShape(Circle())
  .scaleEffect(animationAmount) // 缩放
  .blur(radius: (animationAmount - 1) * 3) // 毛镜
- // 过度动画, 对所有属性变动生效
+ // 过度动画, 在animationAmount变量改变时生效
  // .animation(.default, value: animationAmount)
  // .animation(.linear, value: animationAmount)
  // .animation(.spring(response: 1, dampingFraction: 0.1, blendDuration: 0), value: animationAmount) // 弹簧动画
@@ -126,8 +126,6 @@ struct ContentView_Previews: PreviewProvider {
 方式二  $value.animation 属性改变时, 主动触发动画(已绑定改属性的视图)
  
  VStack {
-     // animationAmount 值改变, 使得button突变
-     // Stepper("Scale mount", value: $animationAmount)
      
      // 此处 animation函数使得 animationAmount值改变 时 触发button动画
      Stepper("Scale mount", value: $animationAmount.animation(
@@ -151,7 +149,7 @@ struct ContentView_Previews: PreviewProvider {
 
 /**
  方式三 withAnimation [指定属性在某个时间 触发动画]
- 
+
  Button("Click") {
      // 与特定的操作（如按钮点击、手势识别等）关联起来，使得在执行这些操作时触发动画效果
      withAnimation(.spring(response: 1)) {

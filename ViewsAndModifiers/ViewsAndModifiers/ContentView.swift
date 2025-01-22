@@ -206,12 +206,12 @@ struct ContentView_Previews: PreviewProvider {
 
 /**
  自定义视图
- 
+
  struct GridStack<Content: View>: View {
      let rows: Int
      let columns: Int
      @ViewBuilder let content: (Int, Int) -> Content // 可以返回view数组
-     
+
      var body: some View {
          VStack {
              ForEach(0..<rows, id: \.self) { row in
@@ -224,7 +224,7 @@ struct ContentView_Previews: PreviewProvider {
          }
      }
  }
- 
+
  GridStack(rows: 3, columns: 3) { row, column in
      Image(systemName: "\(row * 3 + column).circle")
      Text("R\(row) C\(column)")
@@ -234,17 +234,17 @@ struct ContentView_Previews: PreviewProvider {
 
 /**
  自定义绑定
- 
+
  struct ContentView: View {
      @State private var section = 0
      @State var agreedToTerms = false
      @State var agreedToPrivacyPolicy = false
      @State var agreedToEmails = false
-     
+
      var body: some View {
          // 自定义绑定
          let binding = Binding(get: { section }, set: { section = $0 })
-         
+
          let agreedToAll = Binding(
              get: {
                  agreedToTerms && agreedToPrivacyPolicy && agreedToEmails
@@ -255,10 +255,10 @@ struct ContentView_Previews: PreviewProvider {
                  agreedToEmails = $0
              }
          )
-         
+
          return VStack(spacing: 15) {
              TextField("Select", value: binding, format: .number)
-             
+
              Toggle("Agree to terms", isOn: $agreedToTerms)
              Toggle("Agree to privacy policy", isOn: $agreedToPrivacyPolicy)
              Toggle("Agree to receive shipping emails", isOn: $agreedToEmails)

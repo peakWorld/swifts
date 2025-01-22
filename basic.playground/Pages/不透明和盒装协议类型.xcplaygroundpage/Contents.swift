@@ -7,6 +7,8 @@ protocol Shape {
     func draw() -> String
 }
 
+struct Square: Shape {}
+
 struct Triangle: Shape {
     var size: Int
     func draw() -> String {
@@ -36,17 +38,19 @@ let shape = JoinShape(top: triangle, bottom: flipped)
 func max<T>(_ x: T) -> T where T: Shape { return x } // x的值决定了T的具体类型
 max(shape) // 调用函数 可以使用任何符合Shape协议的类型
 
-func makeTrapezoid() -> some Shape { // 返回值符合Shape协议即可,不需指定特定类型;
+// 单个位置返回，返回值符合Shape协议即可,不需指定特定类型;
+func makeTrapezoid() -> some Shape {
     return flipped // shape、triangle也可以是返回值
 }
 
-// 存在多个返回位置, 那么所有返回值必须有相同的基础类型
-//func invalidFlip<T: Shape>(_ shape: T) -> some Shape {
-//    if (shape is JoinShape) {
+// 存在多个返回位置, 那么所有返回值必须是同一种类型且符合基本类型
+func invalidFlip<T: Shape>(_ shape: T) -> some Shape {
+    if (shape is JoinShape<Triangle, Square>) {
 //        return shape
-//    }
-//    return flipped
-//}
+        return flipped
+    }
+    return flipped
+}
 
 
 /** 盒装协议类型 **/

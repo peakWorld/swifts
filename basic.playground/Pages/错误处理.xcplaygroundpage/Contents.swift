@@ -9,7 +9,7 @@ enum VendingMachineError: Error {
 }
 
 /** 抛出函数 */
-// 带有throws标记的函数称为抛出函数。
+// 带有throws标记的函数称为抛出函数<只要错误网上抛必有标志throws; 除非已处理该错误>
 func canThrowErrors() throws {
     throw VendingMachineError.invalidSelection
 }
