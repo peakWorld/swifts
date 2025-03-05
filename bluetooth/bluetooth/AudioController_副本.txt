@@ -1,0 +1,50 @@
+import AudioToolbox
+
+struct AudioController {
+    static func setSystemVolume(_ volume: Float) {
+        guard let defaultDeviceID = getDefaultOutputDevice() else {
+            print("Error: No default output device")
+            return
+        }
+        
+        var normalizedVolume = max(0, min(volume, 1))
+        var address = AudioObjectPropertyAddress(
+            mSelector: kAudioHardwareServiceDeviceProperty_VirtualMainVolume,
+            mScope: kAudioDevicePropertyScopeOutput,
+            mElement: kAudioObjectPropertyElementMain)
+        
+        let status = AudioObjectSetPropertyData(
+            defaultDeviceID,
+            &address,
+            0,
+            nil,
+            UInt32(MemoryLayout<Float>.size),
+            &normalizedVolume)
+        
+        guard status == noErr else {
+            print("Error setting volume: \(status)")
+            return
+        }
+    }
+    
+    private static func getDefaultOutputDevice() -> AudioDeviceID? {
+        var address = AudioObjectPropertyAddress(
+            mSelector: kAudioHardwarePropertyDefaultOutputDevice,
+            mScope: kAudioObjectPropertyScopeGlobal,
+            mElement: kAudioObjectPropertyElementMain)
+        
+        var deviceID: AudioDeviceID = 0
+        var size = UInt32(MemoryLayout<AudioDeviceID>.size)
+        
+        guard AudioObjectGetPropertyData(
+            AudioObjectID(kAudioObjectSystemObject),
+            &address,
+            0,
+            nil,
+            &size,
+            &deviceID) == noErr else {
+            return nil
+        }
+        return deviceID
+    }
+}
